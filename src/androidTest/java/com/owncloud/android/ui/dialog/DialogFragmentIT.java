@@ -45,6 +45,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
@@ -62,6 +63,9 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class DialogFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
         new IntentsTestRule<>(FileDisplayActivity.class, true, false);
+
+    @Rule public IntentsTestRule<SyncedFoldersActivity> syncedFoldersActivityIntentsTestRule =
+        new IntentsTestRule<>(SyncedFoldersActivity.class, true, false);
 
     @Test
     @ScreenshotTest

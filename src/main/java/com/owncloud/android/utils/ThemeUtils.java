@@ -918,4 +918,18 @@ public final class ThemeUtils {
                 break;
         }
     }
+
+    /**
+     * Use this only for icons, which are black by default and should be changed to white
+     */
+    public static Drawable drawableAccordingToDarkMode(Drawable drawable, Context context) {
+        if (isDarkModeActive(context)) {
+            drawable
+                .mutate()
+                .setColorFilter(context.getResources().getColor(R.color.white),
+                                PorterDuff.Mode.SRC_IN);
+
+        }
+        return drawable;
+    }
 }

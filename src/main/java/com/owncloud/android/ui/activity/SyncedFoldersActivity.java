@@ -28,7 +28,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -82,8 +81,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -788,7 +788,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         super.onResume();
     }
 
-    private void showBatteryOptimizationInfo() {
+    @VisibleForTesting
+    public void showBatteryOptimizationInfo() {
         if (powerManagementService.isPowerSavingExclusionAvailable() || checkIfBatteryOptimizationEnabled()) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
@@ -814,7 +815,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                     }
                 })
                 .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
-                .setIcon(R.drawable.ic_battery_alert);
+                .setIcon(ThemeUtils.drawableAccordingToDarkMode(ContextCompat.getDrawable(this,
+                                                                                          R.drawable.ic_battery_alert),
+                                                                this));
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 AlertDialog alertDialog = alertDialogBuilder.show();
